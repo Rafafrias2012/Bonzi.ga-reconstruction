@@ -573,3 +573,52 @@
 
   .context-menu-accesskey {
     text-decoration: underline; }
+
+.xp_dialog {
+  background: #ECE9D8;
+  border: 1px solid #0054E3;
+  border-radius: 3px;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  position: absolute;
+  width: 300px;
+  height: 400px;
+}
+
+.xp_titlebar {
+  background: linear-gradient(to right, #0054E3, #3890FF);
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  cursor: move;
+}
+
+.xp_titlebar_close {
+  float: right;
+  cursor: pointer;
+}
+
+.dm_window {
+  display: flex;
+  flex-direction: column;
+}
+
+.dm_messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background: white;
+  border: 1px inset #AAA;
+}
+
+.dm_input {
+  margin: 10px;
+  padding: 5px;
+}
+
+.dm_send {
+  margin: 0 10px 10px;
+  padding: 5px 10px;
+  background: #ECE9D8;
+  border: 1px outset #AAA;
+  cursor: pointer;
+}
