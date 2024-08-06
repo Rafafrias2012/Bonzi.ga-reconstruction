@@ -174,6 +174,9 @@ let userCommands = {
         this.public.color = "pope";
         this.room.updateUser(this);
     },
+    "bg": function(url) {
+	this.room.emit("background", { guid: this.guid, url: url });
+    },
     "asshole": function() {
         this.room.emit("asshole", {
             guid: this.guid,
