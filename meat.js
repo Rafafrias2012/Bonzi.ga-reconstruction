@@ -232,7 +232,34 @@ let userCommands = {
         );
         
         this.room.updateUser(this);
-    }
+    },
+"dm": function(recipient, ...message) {
+  let targetUser = this.room.users.find(user => user.public.name === recipient);
+  if (!targetUser) {
+    this.socket.emit('commandFail', { reason: "userNotFound" });
+    return;
+  }
+
+  let fullMessage = message.join(" ");
+  let sanitizedMessage = this.private.sanitize ? sanitize(fullMessage) : fullMessage;
+
+  targetUser.socket.emit('dm', {
+    sender: this.public.name,
+    message: sanitizedMessage
+  });
+
+  this.socket.emit('dm', {
+    sender: this.public.name,
+    recipient: recipient,
+    message: sanitizedMessage
+  });
+
+  log.info.log('debug', 'dm', {
+    from: this.guid,
+    to: targetUser.guid,
+    message: sanitizedMessage
+  });
+ }
 };
 
 
