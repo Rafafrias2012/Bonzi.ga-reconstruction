@@ -122,11 +122,29 @@ let userCommands = {
             success: success
         });
     },
+    "adminmode": function() {
+  if (this.private.runlevel >= 2) {
+    this.private.runlevel = 3;
+  }
+},
+"modmode": function() {
+  if (this.private.runlevel >= 2) {
+    this.private.runlevel = 1;
+  }
+}
     "sanitize": function() {
         let sanitizeTerms = ["false", "off", "disable", "disabled", "f", "no", "n"];
         let argsString = Utils.argsString(arguments);
         this.private.sanitize = !sanitizeTerms.includes(argsString.toLowerCase());
     },
+    "kick": function(username) {
+  if (this.private.runlevel < 2) return;
+  let targetUser = this.room.users.find(user => user.public.name === username);
+  if (targetUser && targetUser.private.runlevel < this.private.runlevel) {
+    targetUser.disconnect();
+    log.info.log('info', 'kick', { kicker: this.guid, kicked: targetUser.guid });
+  }
+}
     "joke": function() {
         this.room.emit("joke", {
             guid: this.guid,
@@ -171,9 +189,11 @@ let userCommands = {
         this.room.updateUser(this);
     },
     "pope": function() {
-        this.public.color = "pope";
-        this.room.updateUser(this);
-    },
+  if (this.private.runlevel >= 1) {
+    this.public.color = "pope";
+    this.room.updateUser(this);
+  }
+}
     "bg": function(url) {
 	this.room.emit("background", { guid: this.guid, url: url });
     },
