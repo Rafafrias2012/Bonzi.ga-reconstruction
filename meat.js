@@ -505,4 +505,13 @@ class User {
 
         this.room.leave(this);
     }
+//typing incidator
+typing() {
+  this.room.emit('typing', { guid: this.guid });
+}
+
+stopTyping() {
+  this.room.emit('stopTyping', { guid: this.guid });
+}
+
 }
