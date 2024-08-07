@@ -505,4 +505,11 @@ class User {
 
         this.room.leave(this);
     }
+
+    typing(isTyping) {
+  this.room.emit('typing', {
+    guid: this.guid,
+    isTyping: isTyping
+  });
+    }
 }
